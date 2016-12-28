@@ -46,7 +46,7 @@ cat <<EOT > /etc/krb5.conf
 EOT
 
     echo "Creating KDC Configuration"
-cat <<EOT > /etc/kdc.conf
+cat <<EOT > /var/lib/krb5kdc/kdc.conf
 [kdcdefaults]
     kdc_listen = 88
     kdc_tcp_listen = 88
@@ -56,7 +56,7 @@ cat <<EOT > /etc/kdc.conf
         kadmin_port = 749
         max_life = 12h 0m 0s
         max_renewable_life = 7d 0h 0m 0s
-        master_key_type = aes256-tcs
+        master_key_type = aes256-cts
         supported_enctypes = aes256-cts:normal aes128-cts:normal
     }
     
@@ -65,6 +65,9 @@ cat <<EOT > /etc/kdc.conf
     admin_server = FILE:/var/log/kadmin.log
     default = FILE:/var/log/krb5lib.log
 EOT
+
+echo "Creating Default Policy - Admin Access to */admin"
+echo "*/admin@${KRB5_REALM} *" > /var/lib/krb5kdc/kadm5.acl
 
     echo "Creating Temp pass file"
 cat <<EOT > /etc/krb5_pass
