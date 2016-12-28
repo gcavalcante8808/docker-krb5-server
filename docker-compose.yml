@@ -1,0 +1,13 @@
+version: '2'
+volumes:
+    krb5kdc-data:
+
+services:
+   kdc:
+     image: gcavalcante8808/krb5-server
+     restart: always
+     environment:
+       KRB5_REALM: TS3CORP.COM.BR
+       KRB5_KDC: localhost
+     volumes:
+      - krb5kdc-data:/var/lib/krb5kdc
