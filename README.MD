@@ -28,8 +28,41 @@ You need to supply the following environment variables:
 With all this information, you can now run the container:
 
 ```
-    docker run -d --name krb5-server -e KRB5_REALM=EXAMPLE.COM -e KRB5_KDC=localhost -e KRB5_PASS=mypass gcavalcante8808/krb5-server
+    docker run -d --name krb5-server -e KRB5_REALM=EXAMPLE.COM -e KRB5_KDC=localhost -e KRB5_PASS=mypass -p 88:88 -p 464:464 -p 749:749 gcavalcante8808/krb5-server
 ```
+
+If you haven't provided the password, find him at the logs:
+
+```
+    docker logs krb5-server
+```
+
+To acquire a ticket from your new domain, create a krb5.conf on "/etc" with the following config:
+
+```
+[libdefaults]
+ dns_lookup_realm = false
+ ticket_lifetime = 24h
+ renew_lifetime = 7d
+ forwardable = true
+ rdns = false
+ default_realm = YOURREALM.FQDN
+ 
+[realms]
+ YOURREALM.FQDN = {
+    kdc = localhost
+    admin_server = localhost
+ }
+
+```
+
+Then, try to aquire the ticket:
+
+```
+    kinit admin/admin@YOURREALM.FQDN # Will prompt for the password provided or the generated.
+    klist
+```
+
 
 Other Information
 -----------------
