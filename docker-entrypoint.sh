@@ -58,6 +58,7 @@ cat <<EOT > /var/lib/krb5kdc/kdc.conf
         max_renewable_life = 7d 0h 0m 0s
         master_key_type = aes256-cts
         supported_enctypes = aes256-cts:normal aes128-cts:normal
+        default_principal_flags = +preauth
     }
     
 [logging]
@@ -68,6 +69,7 @@ EOT
 
 echo "Creating Default Policy - Admin Access to */admin"
 echo "*/admin@${KRB5_REALM} *" > /var/lib/krb5kdc/kadm5.acl
+echo "*/service@${KRB5_REALM} aci" >> /var/lib/krb5kdc/kadm5.acl
 
     echo "Creating Temp pass file"
 cat <<EOT > /etc/krb5_pass
