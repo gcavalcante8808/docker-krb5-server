@@ -56,13 +56,15 @@ To acquire a ticket from your new domain, create a krb5.conf on "/etc" with the 
 
 ```
 
-Then, try to aquire the ticket:
+By Default just the user admin/admin@REALM is created; to test the setup, try to aquire the ticket with the following commands:
 
 ```
     kinit admin/admin@YOURREALM.FQDN # Will prompt for the password provided or the generated.
     klist
 ```
 
+**The Default Kadmin policy allows all members inside /admin policy to anything in your kerberos database(default to * perm); if you need a more simple user that will be used to addprincipals
+and generate keytabs you can create users with /service policy (defaults to aci perm)**.
 
 Other Information
 -----------------
