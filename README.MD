@@ -66,6 +66,23 @@ By Default just the user admin/admin@REALM is created; to test the setup, try to
 **The Default Kadmin policy allows all members inside /admin policy to anything in your kerberos database(default to * perm); if you need a more simple user that will be used to addprincipals
 and generate keytabs you can create users with /service policy (defaults to aci perm)**.
 
+Note About Low Entropy and Kerberos Database Creation
+-----------------------------------------------------
+
+If your container won't start properly and show a message like "Loading random data" for couple minutes indicates that the system don't have enough entropy avail to provide a secure cryptographyc loop to the program.
+
+In this case you can use rngd (will be necessary to restart the container after this):
+
+```
+    /sbin/rngd
+```
+
+You can use havaged as well, as we can see in the digitalOcean tutorial:
+
+https://www.digitalocean.com/community/tutorials/how-to-setup-additional-entropy-for-cloud-servers-using-haveged
+
+After this, you just need to restart your container and it is g-n-go.
+
 Other Information
 -----------------
 
