@@ -16,18 +16,7 @@ if [ -z ${KRB5_ADMINSERVER} ]; then
     KRB5_ADMINSERVER=${KRB5_KDC}
 fi
 
-
-if [ ! -f "/var/lib/krb5kdc/principal" ]; then
-
-    echo "No Krb5 Database Found. Creating One with provided information"
-
-    if [ -z ${KRB5_PASS} ]; then
-        echo "No Password for kdb provided ... Creating One"
-        KRB5_PASS=`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;`
-        echo "Using Password ${KRB5_PASS}"
-    fi
-
-    echo "Creating Krb5 Client Configuration"
+echo "Creating Krb5 Client Configuration"
 
 cat <<EOT > /etc/krb5.conf
 [libdefaults]
@@ -44,6 +33,16 @@ cat <<EOT > /etc/krb5.conf
     admin_server = ${KRB5_ADMINSERVER}
  }
 EOT
+
+if [ ! -f "/var/lib/krb5kdc/principal" ]; then
+
+    echo "No Krb5 Database Found. Creating One with provided information"
+
+    if [ -z ${KRB5_PASS} ]; then
+        echo "No Password for kdb provided ... Creating One"
+        KRB5_PASS=`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;`
+        echo "Using Password ${KRB5_PASS}"
+    fi
 
     echo "Creating KDC Configuration"
 cat <<EOT > /var/lib/krb5kdc/kdc.conf
@@ -84,6 +83,7 @@ EOT
     echo "Creating Admin Account"
     kadmin.local -q "addprinc -pw ${KRB5_PASS} admin/admin@${KRB5_REALM}"
 
-    fi
+fi
+
 
 /usr/bin/supervisord -c /etc/supervisord.conf
