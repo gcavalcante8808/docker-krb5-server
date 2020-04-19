@@ -5,7 +5,6 @@ steps:
 - name: build
   image: gcr.io/kaniko-project/executor:debug
   commands:
-  - uname -a
   - pwd
   - ls -lha
   - /kaniko/executor --dockerfile Dockerfile --destination $CI_REGISTRY_IMAGE:${DRONE_COMMIT_SHA}
