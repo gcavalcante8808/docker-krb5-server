@@ -39,7 +39,7 @@ if [ ! -f "/var/lib/krb5kdc/principal" ]; then
     echo "No Krb5 database found. Creating one now."
 
     if [ -z ${KRB5_PASS} ]; then
-        echo "No Password for kdb provided; Creating one."
+        echo "No Password for kdb provided; Creating one now."
         KRB5_PASS=`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;`
         echo "Using Password ${KRB5_PASS}"
     fi
