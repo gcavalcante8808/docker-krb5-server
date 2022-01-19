@@ -29,3 +29,4 @@ services:
         condition: service_healthy
     volumes:
       - ./tests:/usr/src
+      - ./Makefile:/usr/src/Makefile
