@@ -1,0 +1,31 @@
+version: '2.2'
+
+services:
+  kdc:
+    environment:
+      KRB5_REALM: EXAMPLE.COM
+      KRB5_KDC: localhost
+      KRB5_PASS: password-to-use-with-tests
+    healthcheck:
+      test: ["CMD-SHELL", "nc -znv -w1 127.0.0.1 88 && nc -znv -w1 127.0.0.1 464 && nc -znv -w1 127.0.0.1 749" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  tests:
+    image: python:3
+    tty: true
+    command:
+      - make
+      - tests
+    environment:
+      KRB5_KDC: kdc
+      KRB5_REALM: EXAMPLE.COM
+      KRB5_ADMINSERVER: EXAMPLE.COM
+      KRB5_PASS: password-to-use-with-tests
+    working_dir: /usr/src
+    depends_on:
+      kdc:
+        condition: service_healthy
+    volumes:
+      - ./tests:/usr/src

@@ -1,4 +1,4 @@
-version: '2'
+version: '2.2'
 volumes:
     krb5kdc-data:
 
