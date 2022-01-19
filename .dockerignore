@@ -4,4 +4,4 @@ tests/
 README.MD
 docker-compose.yml
 docker-compose.tests.yaml
-
+tests/Makefile
