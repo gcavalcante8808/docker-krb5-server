@@ -17,7 +17,7 @@ services:
     tty: true
     command:
       - make
-      - tests
+      - test
     environment:
       KRB5_KDC: kdc
       KRB5_REALM: EXAMPLE.COM

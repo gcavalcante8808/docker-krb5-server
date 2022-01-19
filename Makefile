@@ -2,7 +2,10 @@ SHELL = /bin/bash
 .SHELLFLAGS = -euo pipefail -c
 
 
-tests: setup
+run-tests-on-docker:
+	docker-compose -f docker-compose.yml -f docker-compose.tests.yml up --exit-code-from tests
+
+test: setup
 	pytest
 
 .PHONY: setup
