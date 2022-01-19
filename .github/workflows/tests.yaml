@@ -1,4 +1,4 @@
-name: docker-compose-actions-workflow
+name: KDC Tests
 on:
   push:
     branches:
