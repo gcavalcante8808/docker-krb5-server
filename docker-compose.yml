@@ -1,10 +1,11 @@
-version: '2'
+version: '2.2'
 volumes:
     krb5kdc-data:
 
 services:
    kdc:
      image: gcavalcante8808/krb5-server
+     build: .
      restart: always
      ports:
       - "88:88"
