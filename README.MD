@@ -56,6 +56,33 @@ To acquire a ticket from your new domain, create a krb5.conf on "/etc" with the 
 
 ```
 
+By default Kerberos client on Apple laptops is having troubles to connect to KDC with following error message:
+```
+kinit admin@EXAMPLE.COM
+admin@EXAMPLE.COM's password: 
+kinit: krb5_get_init_creds: unable to reach any KDC in realm EXAMPLE.COM, tried 1 KDC
+```
+
+It happens because Kerberos client doesn't fall to TCP protocol to fix it, you have to change your krb5.conf file
+```
+[libdefaults]
+ dns_lookup_realm = false
+ ticket_lifetime = 24h
+ renew_lifetime = 7d
+ forwardable = true
+ rdns = false
+ default_realm = YOURREALM.FQDN
+ 
+[realms]
+ YOURREALM.FQDN = {
+    kdc = tcp/localhost:88
+    admin_server = tcp/localhost:749
+ }
+
+```
+
+After that changes you can successfully run `kinit` command mentioned above
+
 By Default just the user admin/admin@REALM is created; to test the setup, try to acquire the ticket with the following commands:
 
 ```
