@@ -56,7 +56,7 @@ To acquire a ticket from your new domain, create a krb5.conf on "/etc" with the 
 
 ```
 
-By default Kerberos client on Apple laptops is not connection to KDC with following error message:
+By default Kerberos client on Apple laptops is having troubles to connect to KDC with following error message:
 ```
 kinit admin@EXAMPLE.COM
 admin@EXAMPLE.COM's password: 
