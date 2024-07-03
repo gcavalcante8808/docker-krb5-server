@@ -15,6 +15,29 @@ If you just want to create a Krb5 Server from scratch, just clone the repository
     docker-compose up -d
 ```
 
+By default, an anonymous volume will be created and mounted on /var/lib/krb5kdc but you can mount your own
+volume. Use the example bellow as a guide:
+
+```yml
+volumes:
+    krb5kdc-data:
+
+services:
+   kdc:
+     image: gcavalcante8808/krb5-server
+     build: .
+     restart: always
+     ports:
+      - "88:88"
+      - "464:464"
+      - "749:749"
+     environment:
+       KRB5_REALM: EXAMPLE.COM
+       KRB5_KDC: localhost
+     volumes:
+      - krb5kdc-data:/var/lib/krb5kdc
+```
+
 Usage
 -----
 
@@ -123,6 +146,6 @@ Running Tests
 
 There are a set of tests (written in python) available on the tests directory. 
 
-You can the tests by running `make run-tests-on-docker` command.
+You run can the tests by running `make run-tests-on-docker` command.
 
 Note: By Default, it requires docker/docker-compose and make installed and working.
