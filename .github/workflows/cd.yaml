@@ -29,7 +29,7 @@ jobs:
 
     - name: Debug
       run: |
-        docker buildx bake -f docker-compose.yaml --print
+        docker buildx bake --print
 
     - name: Build and push images
       uses: docker/bake-action@v4
