@@ -1,7 +1,23 @@
+↖️ Table of Contents
+
+<h1 align="center"><code>Krb5 Server - Docker Image</code></h1>
+
+<div align="center">
+  <a href="https://github.com/gcavalcante8808/docker-krb5-server/actions/workflows/cd.yml">
+    <img src="https://github.com/gcavalcante8808/docker-krb5-server/actions/workflows/cd.yml/badge.svg">
+  </a>
+  <a href="https://www.buymeacoffee.com/gcavalcante8808">
+    <img src="https://img.shields.io/badge/-buy_me_a%C2%A0coffee-gray?logo=buy-me-a-coffee" alt="buy me a coffee">
+  </a>
+</div>
+<br>
+
 Krb5 Server
 -----------
 
-This is a gcavalcante8808/krb5-server image with MIT Kerberos v5 installed.
+This is a gcavalcante8808/krb5-server image with MIT Kerberos v5 installed with Alpine as base image. 
+
+Daily Builds are available and linux/amd64 and linux/arm64 support.
 
 Simple Usage
 ------------
@@ -54,7 +70,7 @@ With all this information, you can now run the container:
     docker run -d --name krb5-server -e KRB5_REALM=EXAMPLE.COM -e KRB5_KDC=localhost -e KRB5_PASS=mypass -p 88:88 -p 464:464 -p 749:749 gcavalcante8808/krb5-server
 ```
 
-If you haven't provided the password, find him at the logs:
+If you haven't provided the password, find it at the logs:
 
 ```
     docker logs krb5-server
@@ -126,7 +142,7 @@ In this case you can use rngd (will be necessary to restart the container after 
     /sbin/rngd
 ```
 
-You can use havaged as well, as we can see in the digitalOcean tutorial:
+You can use `havaged` as well, as we can see in the digitalOcean tutorial:
 
 https://www.digitalocean.com/community/tutorials/how-to-setup-additional-entropy-for-cloud-servers-using-haveged
 
