@@ -2,16 +2,30 @@ volumes:
     krb5kdc-data:
 
 services:
-   kdc:
-     image: gcavalcante8808/krb5-server
-     build: .
-     restart: always
-     ports:
-      - "88:88"
-      - "464:464"
-      - "749:749"
-     environment:
-       KRB5_REALM: EXAMPLE.COM
-       KRB5_KDC: localhost
-     volumes:
-      - krb5kdc-data:/var/lib/krb5kdc
+  kdc:
+    image: gcavalcante8808/krb5-server
+    build:
+      context: .
+      args:
+       ALPINE_VERSION: ${ALPINE_VERSION:-3.19.0}
+      tags:
+      - gcavalcante8808/krb5-server:alpine_${ALPINE_VERSION:-3.19.0}
+      - gcavalcante8808/krb5-server:latest
+      cache_from:
+        - type=gha,mode=max
+      cache_to:
+        - type=gha,mode=max
+      x-bake:
+        platforms:
+          - linux/amd64
+          - linux/arm64
+    restart: unless-stopped
+    ports:
+    - "88:88"
+    - "464:464"
+    - "749:749"
+    environment:
+     KRB5_REALM: EXAMPLE.COM
+     KRB5_KDC: localhost
+    volumes:
+    - krb5kdc-data:/var/lib/krb5kdc

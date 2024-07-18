@@ -1,4 +1,6 @@
-FROM alpine:3.15.0
+ARG ALPINE_VERSION
+
+FROM alpine:${ALPINE_VERSION}
 RUN apk add --no-cache krb5-server krb5 supervisor tini
 ADD supervisord.conf /etc/supervisord.conf
 ADD docker-entrypoint.sh /
