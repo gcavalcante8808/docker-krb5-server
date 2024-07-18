@@ -3,8 +3,8 @@
 <h1 align="center"><code>Krb5 Server - Docker Image</code></h1>
 
 <div align="center">
-  <a href="https://github.com/gcavalcante8808/docker-krb5-server/actions/workflows/cd.yml">
-    <img src="https://github.com/gcavalcante8808/docker-krb5-server/actions/workflows/cd.yml/badge.svg">
+  <a href="https://github.com/gcavalcante8808/docker-krb5-server/actions/workflows/cd.yaml">
+    <img src="https://github.com/gcavalcante8808/docker-krb5-server/actions/workflows/cd.yaml/badge.svg">
   </a>
   <a href="https://www.buymeacoffee.com/gcavalcante8808">
     <img src="https://img.shields.io/badge/-buy_me_a%C2%A0coffee-gray?logo=buy-me-a-coffee" alt="buy me a coffee">
