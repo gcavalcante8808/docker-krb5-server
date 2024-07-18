@@ -6,13 +6,13 @@ This is a gcavalcante8808/krb5-server image with MIT Kerberos v5 installed.
 Simple Usage
 ------------
 
-If you just want to create a Krb5 Server from scratch, just clone the repository and use docker-compose to bring it up quickly:
+If you just want to create a Krb5 Server from scratch, just clone the repository and use docker compose to bring it up quickly:
 
 ```
     cd tmp
     git clone https://github.com/gcavalcante8808/docker-krb5-server.git
     cd docker-krb5-server
-    docker-compose up -d
+    docker compose up -d
 ```
 
 By default, an anonymous volume will be created and mounted on /var/lib/krb5kdc but you can mount your own

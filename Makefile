@@ -3,7 +3,7 @@ SHELL = /bin/bash
 
 
 run-tests-on-docker:
-	docker-compose -f docker-compose.yml -f docker-compose.tests.yml up --exit-code-from tests
+	docker compose -f docker-compose.yml -f docker-compose.tests.yml up --exit-code-from tests
 
 test: setup
 	pytest
