@@ -1,0 +1,39 @@
+name: CD
+on:
+  schedule:
+    - cron: '00 4 * * *'
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build Docker Images
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Set up Docker Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@v2
+      with:
+        install: true
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Debug
+      run: |
+        docker buildx bake -f docker-compose.yaml --print
+
+    - name: Build and push images
+      uses: docker/bake-action@v4
+      env:
+        ALPINE_VERSION: 3.19.0
+      with:
+        push: true
+        provenance: mode=max
