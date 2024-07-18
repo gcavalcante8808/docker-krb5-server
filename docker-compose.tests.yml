@@ -1,6 +1,5 @@
 services:
   kdc:
-    platform: linux/arm64
     environment:
       KRB5_REALM: EXAMPLE.COM
       KRB5_KDC: localhost
